@@ -1,11 +1,13 @@
-#EI TOIMI
+# EI TOIMI
 
 
 import random
 import sys
+from general.sql import sql
+
 
 def vertaus(l1, l2, valinta):
-    #muuttujat
+    # muuttujat
     kavijamaara1 = l1
     kavijamaara2 = l2
     max = ''
@@ -19,16 +21,17 @@ def vertaus(l1, l2, valinta):
     else:
         return False
 
+
+yhteys = sql(input("Input password for SQL connection: "))
 pelipaalla = 0
 pisteet = 0
 
 pelataanko = str(input('Haluatko pelata peliä (kyllä/en): ').lower())
 if pelataanko == 'kyllä':
-    pelipaalla +=1
+    pelipaalla += 1
 elif pelataanko == 'en':
     print('No voi harmi :(')
     sys.exit()
-
 
 while pelipaalla == 1:
     l1 = int(10)
