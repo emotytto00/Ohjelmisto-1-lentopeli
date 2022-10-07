@@ -15,7 +15,7 @@ class sql:
                 autocommit=True)
         except mysql.connector.ProgrammingError:
             print("Invalid credentials")
-            del self
+            quit()
 
     def new_higher_lower(self, topic, country_id):
         with self.connection.cursor() as cursor:
@@ -31,8 +31,3 @@ class sql:
                 return airport_data
             else:
                 return "ERROR: sql returned empty set"
-
-
-# test = sql(input("Input password for SQL connection: "))
-test = sql("mariadbadmin6432@_")
-print(sql.new_higher_lower(test, "elevation_ft", 1))
