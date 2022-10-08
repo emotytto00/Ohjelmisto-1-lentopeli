@@ -1,2 +1,4 @@
-kysymys = input('Sano jotain')
-print(f'suksi helevettii {kysymys} mie en tommosii kuuntele')
+from peli import game
+
+if __name__ == '__main__':
+    game().create_game()

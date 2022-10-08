@@ -13,6 +13,16 @@ class game:
         self.topic = None
         self.points = 0
         self.screen_name = ""
+        self.create_game()
+
+    def create_game(self):
+        while True:  # Game
+            new_game = input("Start a new game?: (y/n)\n")
+            if new_game.lower().startswith("y"):
+                self.start_game()
+            elif new_game.lower().startswith("n"):
+                print("Quitting...")
+                sys.exit()
 
     def start_game(self):
         if not game.game_running:  # starts a new game if a game isn't already running
@@ -80,13 +90,3 @@ class game:
                 self.right_answer()
             else:
                 self.wrong_answer()
-
-
-game_object = game()
-while True:  # Game
-    new_game = input("Start a new game?: (y/n)\n")
-    if new_game.lower().startswith("y"):
-        game_object.start_game()
-    elif new_game.lower().startswith("n"):
-        print("Quitting...")
-        sys.exit()
