@@ -10,7 +10,11 @@ class game:
     topics = {1: "elevation_ft"}
 
     def __init__(self):
+        self.topic = None
         self.points = 0
+        self.screen_name = ""
+
+    def start_game(self):
         if not game.game_running:  # starts a new game if a game isn't already running
             game.game_running = True
             self.screen_name = input("Input a screen name: ")
@@ -42,7 +46,7 @@ class game:
 
     def end_game(self):  # What happens when the game ends
         game.connection.game_end(self.points, self.screen_name)  # writes values to database
-        print(f"Final score: {self.points}")
+        print(f"Final score: {self.points}\n\n\n\n\n\n\n\n")
         game.game_running = False
 
     def right_answer(self):  # What happens when the user inputs the right answer
@@ -71,10 +75,11 @@ class game:
                 self.wrong_answer()
 
 
+game_object = game()
 while True:  # Game
     new_game = input("Start a new game?: (y/n)\n")
     if new_game.lower().startswith("y"):
-        game = game()
+        game_object.start_game()
     elif new_game.lower().startswith("n"):
         print("Quitting...")
         sys.exit()
