@@ -58,7 +58,7 @@ class game:
                 self.answer(new[2], old[2])  # Ask the user for input and determine whether it is right or wrong
                 old = new  # (current round new) -> (next round old)
             else:
-                print("### An error occured while trying to fetch data from the database")
+                print("### An error occurred while trying to fetch data from the database")
                 sys.exit()
 
     def end_game(self):  # What happens when the game ends
