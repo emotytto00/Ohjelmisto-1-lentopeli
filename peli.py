@@ -16,6 +16,7 @@ class game:
 
     def start_game(self):
         if not game.game_running:  # starts a new game if a game isn't already running
+            self.points = 0
             game.game_running = True
             self.screen_name = input("Input a screen name: ")
 
@@ -34,15 +35,21 @@ class game:
         old = game.connection.new_higher_lower(game.topics[self.topic], random.randrange(0, game.airport_amount))
         new = game.connection.new_higher_lower(game.topics[self.topic], random.randrange(0, game.airport_amount))
         while game.game_running:  # The game itself
-            while new == old:  # Re-roll the new airport if it is the same as the old airport. (no duplicates)
-                new = game.connection.new_higher_lower(game.topics[self.topic],
-                                                       random.randrange(0, game.airport_amount))
-            print(f"\n\n{game.topics[self.topic]:^128}")
-            print(f"{old[0]:>64}  :  {new[0]:<64}\n"
-                  f"{old[1]:>64}  :  {new[1]:<64}\n"
-                  f"{old[2]:>64}  :  {'??????':<64}\n")
-            self.answer(new[2], old[2])
-            old = new  # (current round new) -> (next round old)
+            if new and old:  # if the SQL-query return valid data for both airports
+                while new == old:  # Re-roll the new airport if it is the same as the old airport. (no duplicates)
+                    new = game.connection.new_higher_lower(game.topics[self.topic],
+                                                           random.randrange(0, game.airport_amount))
+                # INTERFACE
+                print(f"\n\n{game.topics[self.topic]:^128}")
+                print(f"{old[0]:>64}  :  {new[0]:<64}\n"
+                      f"{old[1]:>64}  :  {new[1]:<64}\n"
+                      f"{old[2]:>64}  :  {'??????':<64}\n")
+
+                self.answer(new[2], old[2])  # Ask the user for input and determine whether it is right or wrong
+                old = new  # (current round new) -> (next round old)
+            else:
+                print("### An error occured while trying to fetch data from the database")
+                sys.exit()
 
     def end_game(self):  # What happens when the game ends
         game.connection.game_end(self.points, self.screen_name)  # writes values to database
@@ -63,7 +70,7 @@ class game:
         try:
             user_answer = str(user_answer)
         except ValueError:
-            print("Value Error")
+            print("### Value Error")
         else:
             if f_data_new > f_data_old:
                 higher = True
