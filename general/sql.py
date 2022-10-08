@@ -14,27 +14,35 @@ class sql:
                 password=self.password,
                 autocommit=True)
         except mysql.connector.ProgrammingError:
-            print("Invalid credentials")
+            print("### Invalid credentials")
             quit()
 
-    def new_higher_lower(self, topic, country_id):
+    def new_higher_lower(self, topic, country_id):  #
         with self.connection.cursor() as cursor:
             # Defining the query
             query = f"SELECT country.name, europe_airport.name, {topic} " \
                     f"FROM country, europe_airport " \
-                    f"WHERE europe_airport.id='{country_id}' AND country.iso_country=europe_airport.iso_country;"
-            # Adding the coordinates to the airports list
+                    f"WHERE europe_airport.id='{country_id}' AND country.iso_country=europe_airport.iso_country"
             cursor.execute(query)
             airport_data = cursor.fetchall()
-            # Printing distance
             if airport_data:
                 return airport_data[0]
             else:
-                return "ERROR: sql returned empty set"
+                return False
 
-    def game_end(self, points, screen_name):
+    def game_end(self, points, screen_name):  # stores points and screen name in database
         with self.connection.cursor() as cursor:
             query = f"INSERT INTO flight_game.europe_game (points, screen_name) " \
                     f"VALUES (%(points)s, %(screen_name)s);"
             data = {"points": points, "screen_name": screen_name}
             cursor.execute(query, data)
+
+    def leaderboard(self):  # returns table of result. (best 10 sorted by points, and then id)
+        with self.connection.cursor() as cursor:
+            query = "SELECT points, screen_name FROM europe_game ORDER BY points DESC, id LIMIT 10;"
+            cursor.execute(query)
+            leaderboard_data = cursor.fetchall()
+            if leaderboard_data:  # if data exists
+                return leaderboard_data
+            else:
+                return False
