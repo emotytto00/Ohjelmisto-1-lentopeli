@@ -3,8 +3,10 @@ connection = connection
 
 
 def print_leaderboard(topic):
-    print('Top 10 players')
-    print(connection.leaderboard(topic))
+    print('Top 10 highscores:')
+    for item in connection.leaderboard(topic):
+        for value in item:
+            print(value)
 
 def leaderboard_menu():
     while True:
