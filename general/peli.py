@@ -28,7 +28,8 @@ class game:
     topics = {1: "elevation_ft",
               2: "flights",
               3: "rating",
-              4: "review_amount"}
+              4: "review_amount",
+              5: "revenue"}
 
     def __init__(self):
         self.topic = None
