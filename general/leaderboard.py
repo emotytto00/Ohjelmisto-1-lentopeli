@@ -27,8 +27,10 @@ def print_leaderboard(topic):
 
 def leaderboard_menu():
     from general.peli import game
+    from general import peli
+    peli.print_topics()
     while True:
-        game.print_topics()
+        from general import peli
         view_leaderboard = input('Which leaderboard do you want to view?')
         try:
             view_leaderboard = int(view_leaderboard)
@@ -39,6 +41,16 @@ def leaderboard_menu():
         else:
             if 0 < view_leaderboard <= len(game.topics):
                 print_leaderboard(view_leaderboard)
+                topics_again = input('Do you wish to see the topics again? (y/n) ')
+                if topics_again.startswith('y'):
+                    peli.print_topics()
+                else:
+                    try:
+                        view_leaderboard = int(view_leaderboard)
+                    except ValueError:
+                        if view_leaderboard == '':
+                            break
+                        print('### Invalid value mi amigo')
             else:
                 print('### Value out of range muchachos')
 
