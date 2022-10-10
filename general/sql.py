@@ -46,3 +46,6 @@ class sql:
                 return leaderboard_data
             else:
                 return False
+
+
+connection = sql(input("Input password for SQL connection: "))

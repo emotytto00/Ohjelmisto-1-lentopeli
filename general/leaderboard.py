@@ -1,7 +1,6 @@
-from general.sql import sql
-
-yhteys = sql("DonGio024")
+from sql import connection
+connection = connection
 
 print('Top 10 players')
-print(yhteys.leaderboard())
+print(connection.leaderboard())
 

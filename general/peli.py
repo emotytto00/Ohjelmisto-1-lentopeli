@@ -1,11 +1,11 @@
 import random
 import sys
-from general.sql import sql
+from sql import connection
 
 
 class game:
     game_running = False
-    connection = sql(input("Input password for SQL connection: "))
+    connection = connection
     airport_amount = 37
     topics = {1: "elevation_ft"}
 
