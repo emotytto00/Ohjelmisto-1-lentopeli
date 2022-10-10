@@ -4,6 +4,23 @@ import leaderboard
 from sql import connection
 
 
+def print_topics():
+    print("\nChoose from the following topics:")
+    x = 0
+    print(f"{'+---+'}{'-----------------------------------+':>28}\n"
+          f"| # | Topic                             |\n"
+          f"{'+---+'}{'-----------------------------------+':>28}")
+    for item in game.topics.items():
+        if x > 0:
+            print()
+        print("| ", end="")
+        x += 1
+        print(f"{item[0]:>1} | ", end="")
+        print(f"{item[1]:<33}", end="")
+        print(f" | ", end="")
+    print(f"\n{'+---+'}{'-----------------------------------+':>28}")
+
+
 class game:
     game_running = False
     connection = connection
@@ -36,7 +53,7 @@ class game:
             self.screen_name = input("Input a screen name: ")
 
             while True:  # topic selection
-                self.print_topics()
+                print_topics()
                 self.topic = input(f"Select topic: (#)\n")
                 try:
                     self.topic = int(self.topic)
@@ -104,19 +121,3 @@ class game:
                 else:
                     self.wrong_answer()
                     break
-
-    def print_topics(self):
-        print("\nChoose from the following topics:")
-        x = 0
-        print(f"{'+---+'}{'-----------------------------------+':>28}\n"
-              f"| # | Topic                             |\n"
-              f"{'+---+'}{'-----------------------------------+':>28}")
-        for item in self.topics.items():
-            if x > 0:
-                print()
-            print("| ", end="")
-            x += 1
-            print(f"{item[0]:>1} | ", end="")
-            print(f"{item[1]:<33}", end="")
-            print(f" | ", end="")
-        print(f"\n{'+---+'}{'-----------------------------------+':>28}")
