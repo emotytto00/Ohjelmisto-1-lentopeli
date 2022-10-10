@@ -78,17 +78,23 @@ class game:
 
     def answer(self, f_data_new, f_data_old):  # Answering process
         higher = False
-        user_answer = input("    Higher or lower?: ")
-        try:
-            user_answer = str(user_answer)
-        except ValueError:
-            print("### Value Error")
-        else:
-            if f_data_new > f_data_old:
-                higher = True
-            if user_answer.lower().startswith("h") and higher:
-                self.right_answer()
-            elif user_answer.lower().startswith("l") and not higher:
-                self.right_answer()
+        while True:
+            user_answer = input("    Higher or lower?: ")
+            try:
+                user_answer = str(user_answer)
+            except ValueError:
+                print("### Value Error")
             else:
-                self.wrong_answer()
+                if f_data_new > f_data_old:
+                    higher = True
+                if user_answer.lower().startswith("h") and higher:
+                    self.right_answer()
+                    break
+                elif user_answer.lower().startswith("l") and not higher:
+                    self.right_answer()
+                    break
+                elif not user_answer.lower().startswith("h") and not user_answer.lower().startswith("l"):
+                    print("### Invalid answer format")
+                else:
+                    self.wrong_answer()
+                    break
