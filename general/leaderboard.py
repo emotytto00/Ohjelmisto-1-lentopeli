@@ -26,9 +26,22 @@ def print_leaderboard(topic):
     print(f"\n{'+--------+'}{'------------------------------+':>28}")
 
 def leaderboard_menu():
+    from general.peli import game
     while True:
-        pass
-        # input (mikä topic)
+        game.print_topics()
+        view_leaderboard = input('Which leaderboard do you want to view?')
+        try:
+            view_leaderboard = int(view_leaderboard)
+        except ValueError:
+            if view_leaderboard == '':
+                break
+            print('### Invalid value mi amigo')
+        else:
+            if 0 < view_leaderboard <= len(game.topics):
+                print_leaderboard(view_leaderboard)
+            else:
+                print('### Value out of range muchachos')
+
         # printtaa print_leaderboard(inputilla)
         # kysyy mitä tehdään
         # poistutaan breakillä
