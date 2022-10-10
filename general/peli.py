@@ -1,5 +1,6 @@
 import random
 import sys
+import leaderboard
 from sql import connection
 
 
@@ -63,7 +64,8 @@ class game:
 
     def end_game(self):  # What happens when the game ends
         game.connection.game_end(self.points, self.screen_name)  # writes values to database
-        print(f"Final score: {self.points}\n\n\n\n\n\n\n\n")
+        print(f"Final score: {self.points}\n\n\n")
+        leaderboard.print_leaderboard()
         game.game_running = False
 
     def right_answer(self):  # What happens when the user inputs the right answer
