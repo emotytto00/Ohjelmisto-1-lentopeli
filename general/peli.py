@@ -63,9 +63,9 @@ class game:
                 sys.exit()
 
     def end_game(self):  # What happens when the game ends
-        game.connection.game_end(self.points, self.screen_name)  # writes values to database
+        game.connection.game_end(self.points, self.screen_name, self.topic)  # writes values to database
         print(f"Final score: {self.points}\n\n\n")
-        leaderboard.print_leaderboard()
+        leaderboard.print_leaderboard(self.topic)
         game.game_running = False
 
     def right_answer(self):  # What happens when the user inputs the right answer

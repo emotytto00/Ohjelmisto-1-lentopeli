@@ -30,16 +30,17 @@ class sql:
             else:
                 return False
 
-    def game_end(self, points, screen_name):  # stores points and screen name in database
+    def game_end(self, points, screen_name, topic):  # stores points and screen name in database
         with self.connection.cursor() as cursor:
-            query = f"INSERT INTO flight_game.europe_game (points, screen_name) " \
-                    f"VALUES (%(points)s, %(screen_name)s);"
-            data = {"points": points, "screen_name": screen_name}
+            query = f"INSERT INTO flight_game.europe_game (points, screen_name, topic) " \
+                    f"VALUES (%(points)s, %(screen_name)s, %(topic)s);"
+            data = {"points": points, "screen_name": screen_name, "topic":topic}
             cursor.execute(query, data)
 
-    def leaderboard(self):  # returns table of result. (best 10 sorted by points, and then id)
+    def leaderboard(self, topic):  # returns table of result. (best 10 sorted by points, and then id)
         with self.connection.cursor() as cursor:
-            query = "SELECT points, screen_name FROM europe_game ORDER BY points DESC, id LIMIT 10;"
+            query = "SELECT points, screen_name FROM europe_game " \
+                    f"WHERE topic={topic} ORDER BY points DESC, id LIMIT 10;"
             cursor.execute(query)
             leaderboard_data = cursor.fetchall()
             if leaderboard_data:  # if data exists
