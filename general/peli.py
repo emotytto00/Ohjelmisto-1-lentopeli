@@ -7,9 +7,9 @@ from sql import connection
 def print_topics():
     print("\nChoose from the following topics:")
     x = 0
-    print(f"{'+---+'}{'-----------------------------------+':>28}\n"
-          f"| # | Topic                             |\n"
-          f"{'+---+'}{'-----------------------------------+':>28}")
+    print(f"{'+---+':<5}{'-----------------------------------+':>28}\n"
+          f"{'|':<2}{'#':^1}{'|':^3}{'Topic':<33}{'|':>2}\n"
+          f"{'+---+':<5}{'-----------------------------------+':>28}")
     for item in game.topics.items():
         if x > 0:
             print()
@@ -31,11 +31,11 @@ class game:
               4: "review_amount",
               5: "revenue"}
 
-    def __init__(self):
+    def __init__(self, screen_name):
         self.topic = None
         self.new = None
         self.points = 0
-        self.screen_name = ""
+        self.screen_name = screen_name
         self.create_game()
 
     def create_game(self):
@@ -52,12 +52,7 @@ class game:
             self.points = 0
             game.game_running = True
 
-            while True:  # screen name input
-                self.screen_name = input("Input a screen name: ")
-                if len(self.screen_name) < 25:
-                    break
-                else:
-                    print("### Error: name too long (Max 25 characters)")
+
 
             while True:  # topic selection
                 print_topics()
@@ -65,7 +60,7 @@ class game:
                 try:
                     self.topic = int(self.topic)
                 except ValueError:
-                    print("### Value error: insert an integer")
+                    print("### Value error: not an integer")
                 else:
                     if 0 < self.topic <= len(game.topics):  # if valid topic selection
                         break
