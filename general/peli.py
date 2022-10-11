@@ -23,7 +23,7 @@ def print_topics():
 class game:
     game_running = False
     connection = connection
-    AIRPORT_AMOUNT = 37
+    AIRPORT_AMOUNT = 39
     topics = {1: ("elevation_ft", "Elevation from sea level"),
               2: ("flights", "Daily flights"),
               3: ("rating", "Average Google star rating"),
