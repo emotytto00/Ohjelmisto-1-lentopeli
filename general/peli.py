@@ -1,5 +1,4 @@
 import random
-import sys
 import leaderboard
 from sql import connection
 
@@ -83,7 +82,7 @@ class game:
                       f"{old[2]:>64}  :  {'??????':<64}\n")
             else:  # if SQL-query doesn't return valid data for both airports
                 print("### An error occurred while trying to fetch data from the database")
-                sys.exit()
+                self.end_game()
 
             self.answer(self.new[2], old[2])  # Ask the user for input and determine whether it is right or wrong
             old = self.new  # (current round new) -> (next round old)
