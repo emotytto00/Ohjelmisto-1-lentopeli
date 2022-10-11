@@ -5,7 +5,7 @@ connection = connection
 
 def print_leaderboard(topic):
     from general.peli import game
-    print('\nTop 10 highscores for topic: ', game.topics[topic])
+    print('\nTop 10 highscores for topic:', game.topics[topic][1])
     x = 0
     print(f"{'+--------+':<10}{'------------------------------+':>28}\n"
           f"{'|':<2}{'Points':^6}{'|':^3}{'Screen name':<28}{'|':>2}\n"
@@ -32,7 +32,7 @@ def leaderboard_menu():
     peli.print_topics()
     while True:
         from general import peli
-        view_leaderboard = input('Which leaderboard do you want to view?\nInput an empty string to return\n')
+        view_leaderboard = input('Which leaderboard do you want to view?\n(!) Input an empty string to return\n')
         try:
             view_leaderboard = int(view_leaderboard)
         except ValueError:

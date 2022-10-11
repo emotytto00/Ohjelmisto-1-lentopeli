@@ -58,13 +58,14 @@ class menu:
 
     def options(self, selection):
         if selection == 1:
-            game(self.screen_name).create_game()
+            game(self.screen_name)
         elif selection == 2:
             from general.leaderboard import leaderboard_menu
             leaderboard_menu()
         elif selection == 3:
             self.input_screen_name()
         elif selection == 4:
+            print("Quitting...")
             sys.exit()
         else:
             print("### Invalid input: out of range")

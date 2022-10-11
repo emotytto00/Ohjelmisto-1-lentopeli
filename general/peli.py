@@ -16,7 +16,7 @@ def print_topics():
         print("| ", end="")
         x += 1
         print(f"{item[0]:>1} | ", end="")
-        print(f"{item[1]:<33}", end="")
+        print(f"{item[1][1]:<33}", end="")
         print(f" | ", end="")
     print(f"\n{'+---+'}{'-----------------------------------+':>28}")
 
@@ -25,11 +25,11 @@ class game:
     game_running = False
     connection = connection
     AIRPORT_AMOUNT = 37
-    topics = {1: "elevation_ft",
-              2: "flights",
-              3: "rating",
-              4: "review_amount",
-              5: "revenue"}
+    topics = {1: ("elevation_ft", "Elevation from sea level"),
+              2: ("flights", "Daily flights"),
+              3: ("rating", "Average Google star rating"),
+              4: ("review_amount", "Amount of reviews on Google"),
+              5: ("revenue", "Annual revenue")}
 
     def __init__(self, screen_name):
         self.topic = None
@@ -44,15 +44,12 @@ class game:
             if new_game.lower().startswith("y"):
                 self.start_game()
             elif new_game.lower().startswith("n"):
-                print("Quitting...")
-                sys.exit()
+                break
 
     def start_game(self):  # Game
         if not game.game_running:  # starts a new game if a game isn't already running
             self.points = 0
             game.game_running = True
-
-
 
             while True:  # topic selection
                 print_topics()
@@ -68,25 +65,28 @@ class game:
                         print("### Invalid topic: out of range")
 
         # Initializing the airports from database
-        old = game.connection.new_higher_lower(game.topics[self.topic], random.randrange(0, game.AIRPORT_AMOUNT))
-        self.new = game.connection.new_higher_lower(game.topics[self.topic], random.randrange(0, game.AIRPORT_AMOUNT))
+        old = game.connection.new_higher_lower(game.topics[self.topic][0], random.randrange(0, game.AIRPORT_AMOUNT))
+        self.new = game.connection.new_higher_lower(game.topics[self.topic][0],
+                                                    random.randrange(0, game.AIRPORT_AMOUNT))
 
         while game.game_running:
+            i = 0
+            while self.new == old or i < 20:  # Re-roll the new airport if it is the same as the old airport.
+                i += 1  # if SQL-query returns false false 20 times, it's broken.
+                self.new = game.connection.new_higher_lower(game.topics[self.topic][0],
+                                                            random.randrange(0, game.AIRPORT_AMOUNT))
             if self.new and old:  # if the SQL-query return valid data for both airports
-                while self.new == old:  # Re-roll the new airport if it is the same as the old airport. (no duplicates)
-                    self.new = game.connection.new_higher_lower(game.topics[self.topic],
-                                                                random.randrange(0, game.AIRPORT_AMOUNT))
                 # Print interface
-                print(f"\n\n{game.topics[self.topic]:^128}")
+                print(f"\n\n{game.topics[self.topic][1]:^133}")
                 print(f"{old[0]:>64}  :  {self.new[0]:<64}\n"
                       f"{old[1]:>64}  :  {self.new[1]:<64}\n"
                       f"{old[2]:>64}  :  {'??????':<64}\n")
-
-                self.answer(self.new[2], old[2])  # Ask the user for input and determine whether it is right or wrong
-                old = self.new  # (current round new) -> (next round old)
             else:  # if SQL-query doesn't return valid data for both airports
                 print("### An error occurred while trying to fetch data from the database")
                 sys.exit()
+
+            self.answer(self.new[2], old[2])  # Ask the user for input and determine whether it is right or wrong
+            old = self.new  # (current round new) -> (next round old)
 
     def end_game(self):  # What happens when the game ends
         game.connection.game_end(self.points, self.screen_name, self.topic)  # writes values to database
