@@ -34,7 +34,7 @@ class sql:
         with self.connection.cursor() as cursor:
             query = f"INSERT INTO flight_game.europe_game (points, screen_name, topic) " \
                     f"VALUES (%(points)s, %(screen_name)s, %(topic)s);"
-            data = {"points": points, "screen_name": screen_name, "topic":topic}
+            data = {"points": points, "screen_name": screen_name, "topic": topic}
             cursor.execute(query, data)
 
     def leaderboard(self, topic):  # returns table of result. (best 10 sorted by points, and then id)
