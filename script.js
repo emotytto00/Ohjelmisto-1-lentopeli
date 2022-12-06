@@ -68,12 +68,11 @@ function changeThemeTo(theme_index) {
         color_schemes[theme_index]['a_hover_bg']);
     element.style.color = color_schemes[theme_index]['a_hover_color'];
   });
-  decreaseNotifications();
   const all_themes = document.querySelectorAll('.theme_item');
   if (all_themes[theme_index].getAttribute('data-unlocked') === 'true' &&
       all_themes[theme_index].children[0].children.length > 4) {
     all_themes[theme_index].children[0].children[0].remove();
-
+    decreaseNotifications();
   }
 
 }
@@ -200,11 +199,11 @@ const color_schemes = [
     a4_color: '#ffffff',
     a_hover_bg: '#ff006e',
     a_hover_color: '#ffffff',
-    unlock_criteria: '???',
+    unlock_criteria: 'Find the secret div',
   }];
 
 /* Secret theme unlock */
-document.querySelector('#empty').addEventListener('click', function() {
+document.querySelector('#secret').addEventListener('click', function() {
   unlockTheme(2);
 });
 
