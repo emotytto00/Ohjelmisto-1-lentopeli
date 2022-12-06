@@ -7,38 +7,62 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible&family=Nanum+Myeongjo&display=swap"
+          rel="stylesheet">
 
     <script src="script.js" defer></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<!-- Dropdown -->
+<!-- Top bar and dropdown -->
 <div class="top_bar accent_1">
-    <div class="dropdown accent_2 no_bg">
-        &#8801; <!-- ≡ -->
+    <div class="dropdown accent_2">
+        &#8801; <!-- ≡ symbol-->
+        <span class="notification"></span>
         <div class="dropdown-content accent_2">
-            <a href="#" class="accent_2">Link 1</a>
-            <a href="#" class="accent_2">Link 2</a>
-            <a href="#" class="accent_2">Link 3</a>
+            <a href="#game" class="accent_hover">Game</a>
+            <a href="#map" class="accent_hover">Map</a>
+            <a href="#themes" class="accent_hover">Themes</a><span class="notification"
+                                                                   style="top: 10.5rem"></span>
+            <a href="#leaderboard" class="accent_hover">Leaderboard</a>
         </div>
     </div>
-    <div id="title">
-        <p> Fly 飞得更高或更低 game </p>
-    </div>
+    <h1>Fly 飞得更高或更低 game</h1>
+    <div id="empty"></div>
 </div>
-<!-- GAME LAYOUT-->
-<div class="top">
-    <div class="left">
-
+<!-- GAME LAYOUT -->
+<main id="game">
+    <div class="game accent_3">
+        <div class="left">
+            <h2 id="topic" class="accent_2">Elevation from sea level</h2>
+            <article>
+                <p class="accent_4">Norway</p>
+                <p class="accent_4">Oslo Gardemoen Airport</p>
+                <p class="accent_4">1 200 000</p>
+            </article>
+        </div>
+        <div class="right">
+            <article>
+                <p class="accent_4">Finland</p>
+                <p class="accent_4">Helsinki-Vantaa Airport</p>
+                <a href="#" class="higher_btn">Higher</a>
+                <a href="#" class="lower_btn">Lower</a>
+            </article>
+        </div>
     </div>
-    <div class="right">
-
+</main>
+<!-- map integration? -->
+<div id="map" class="accent_3">
+    <p>TODO: map here</p>
+</div>
+<!-- THEME SELECTOR -->
+<section id="themes" class="accent_2">
+    <div class="themes">
+        <!-- Theme buttons get created here -->
     </div>
+</section>
+<div id="leaderboard" class="accent_1">
+    <p>TODO: leaderboard here</p>
 </div>
-<div class="bottom">
-
-</div>
-
 </body>
 </html>
