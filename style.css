@@ -120,6 +120,7 @@ h1 {
     justify-content: flex-start;
     align-items: center;
     padding-top: 7em;
+    border-radius: 2rem;
 }
 
 /* elements of flex items */
@@ -132,6 +133,14 @@ h1 {
     width: 70%;
 }
 
+.game article p {
+    border-radius: 3rem;
+    border-style: outset;
+    border-width: medium;
+    border-color: rgba(4, 22, 89, 0.44);
+    text-shadow: #000000 1px 0 3px;
+}
+
 #topic {
     position: absolute;
     padding: 1em;
@@ -140,6 +149,10 @@ h1 {
     text-align: center;
     top: 7.5rem;
     transform: translate(-50%);
+    border-radius: 0.5rem;
+    border-style: solid;
+    border-width: medium;
+    border-color: #ffffff;
 }
 
 .higher_btn, .lower_btn {
