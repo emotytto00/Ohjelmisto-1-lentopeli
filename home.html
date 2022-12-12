@@ -12,6 +12,13 @@
 
     <script src="script.js" defer></script>
     <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+     integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+     crossorigin=""/>
+     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+     integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+     crossorigin=""></script>
 </head>
 <body>
 <!-- Top bar and dropdown -->
@@ -21,7 +28,7 @@
         <span class="notification"></span>
         <div class="dropdown-content accent_2">
             <a href="#game" class="accent_hover">Game</a>
-            <a href="#map" class="accent_hover">Map</a>
+            <a href="#mapcss" class="accent_hover">Map</a>
             <a href="#themes" class="accent_hover">Themes</a><span class="notification"
                                                                    style="top: 10.5rem"></span>
             <a href="#leaderboard" class="accent_hover">Leaderboard</a>
@@ -52,8 +59,10 @@
     </div>
 </main>
 <!-- map integration? -->
-<div id="map" class="accent_3">
-    <p>TODO: map here</p>
+<div id="mapcss" class="accent_3">
+    <div id="map" class="accent_3">
+        <p>TODO: map here</p>
+    </div>
 </div>
 <!-- THEME SELECTOR -->
 <section id="themes" class="accent_2">
