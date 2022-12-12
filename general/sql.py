@@ -1,5 +1,7 @@
 import mysql.connector
+from dotenv import load_dotenv
 
+load_dotenv()
 
 class sql:
     def __init__(self, password):
