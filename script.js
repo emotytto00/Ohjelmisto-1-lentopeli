@@ -199,19 +199,28 @@ function shift_current_airport_to_left() {
 * if higher is true, it means the airport on the right is higher */
 
 function higher_button_onClick() {
-
+  if (higher) {
+    right_answer()
+  } else {
+    wrong_answer()
+  }
 }
 
 function lower_button_onClick() {
-
+  if (!higher) {
+    right_answer()
+  } else {
+    wrong_answer()
+  }
 }
 
 function right_answer() {
-  /* TODO */
+  points++
+  new_airport()
 }
 
 function wrong_answer() {
-  /* TODO */
+  end_game()
 }
 
 async function end_game() {
@@ -291,8 +300,8 @@ const right_two = document.querySelector('#right-two');
 const higher_button = document.querySelector('#higher_btn');
 const lower_button = document.querySelector('#lower_btn');
 
-higher_button.addEventListener('click', higher_button_onClick())
-lower_button.addEventListener('click', lower_button_onClick())
+higher_button.addEventListener('click', higher_button_onClick)
+lower_button.addEventListener('click', lower_button_onClick)
 
 /* map stuff */
 
