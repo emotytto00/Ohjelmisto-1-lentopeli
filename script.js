@@ -488,6 +488,12 @@ function place_pins() {
       addTo(map);
 }
 
+async function display_leaderboard(){
+  let leaderB = await fetch('http://127.0.0.1:3000/leaderboard/' + topic[2]);
+  let response2 = await leaderB.json();
+  document.querySelector("#leaderboard").innerHTML = response2;
+}
+
 removeNotifications();
 themeButtons(); // Create theme buttons
 unlockTheme(0); // Unlock default themes
@@ -496,6 +502,7 @@ changeThemeTo(0); // Set theme to [0]
 update_score();
 update_highscore();
 new_game_popup();
+display_leaderboard();
 
 /* DEBUGGING/CHEAT: */
 document.querySelector('h1').addEventListener('click', function() {
