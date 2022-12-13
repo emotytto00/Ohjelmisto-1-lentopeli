@@ -168,6 +168,7 @@ async function init_left_side() {
 
 /* Gets random airport for the right side */
 async function new_airport() {
+  old = current;
   shift_current_airport_to_left();
 
   async function get_new() {
@@ -191,7 +192,6 @@ function shift_current_airport_to_left() {
   left_two.innerHTML = current['airport_name'];
   left_three.innerHTML = current['topic_value'];
 }
-
 
 /* higher variable can be used to determine what do with buttons
 * higher is either true of false
@@ -267,9 +267,10 @@ const topics = {
   5: ['revenue', 'Annual revenue', '5'],
 };
 let topic = topics[1];
-console.log(topic[2]);
 let higher;
 let current;
+let old;
+
 let screen_name;
 let points;
 const left_one = document.querySelector('#left-one');
