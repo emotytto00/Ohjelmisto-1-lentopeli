@@ -25,7 +25,7 @@ db = config.connection
 
 
 # takes topics as strings
-@app.route('/airport/<topic>')
+@app.route('/airport/<topic>', methods=['GET'])
 def new_higher_lower(topic):
     with db.cursor() as cursor:
         from random import randrange
@@ -41,7 +41,7 @@ def new_higher_lower(topic):
 
 
 # takes topics as numbers
-@app.route('/leaderboard/<topic>')
+@app.route('/leaderboard/<topic>', methods=['GET'])
 def leaderboard(topic):  # returns table of result. (best 10 sorted by points, and then id)
     with db.cursor() as cursor:
         query = "SELECT points, screen_name FROM europe_game " \
@@ -53,7 +53,7 @@ def leaderboard(topic):  # returns table of result. (best 10 sorted by points, a
 
 # Example:
 # /game_end?points=5&name=Jeff&topic=1
-@app.route('/game_end')
+@app.route('/game_end', methods=['POST'])
 def game_end():  # stores points and screen name in database
     with db.cursor() as cursor:
         args = request.args
