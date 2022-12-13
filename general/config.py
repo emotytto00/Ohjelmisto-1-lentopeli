@@ -1,5 +1,5 @@
 """DATABASE DATA"""
-AIRPORT_AMOUNT = 39
+AIRPORT_AMOUNT = 38
 topics = {1: ("elevation_ft", "Elevation from sea level"),
           2: ("flights", "Daily flights"),
           3: ("rating", "Average Google star rating"),
