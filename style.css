@@ -138,7 +138,7 @@ h1 {
     padding-top: 7em;
 }
 .left {
-    background-image: url("images/GamePictures/albania.jpg");
+    background-image: url("images/GamePictures/AL.jpg");
     background-size: 100% 100%;
     border-radius: 2rem;
     height: calc(80vh - 5rem);
@@ -149,7 +149,7 @@ h1 {
     align-items: center;
 }
 .right {
-    background-image: url("images/GamePictures/spain.jpg");
+    background-image: url("images/GamePictures/ES.jpg");
     background-size: 100% 100%;
     border-radius: 2rem;
     height: calc(80vh - 5rem);

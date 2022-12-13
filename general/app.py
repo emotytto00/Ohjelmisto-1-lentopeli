@@ -30,13 +30,13 @@ def new_higher_lower(topic):
     with db.cursor() as cursor:
         from random import randrange
         random_country_id = randrange(0, config.AIRPORT_AMOUNT)
-        query = f"SELECT country.name, europe_airport.name, {topic}, latitude_deg, longitude_deg " \
+        query = f"SELECT country.name, europe_airport.name, {topic}, latitude_deg, longitude_deg, europe_airport.iso_country " \
                 f"FROM country, europe_airport " \
                 f"WHERE europe_airport.id='{random_country_id}' AND country.iso_country=europe_airport.iso_country"
         cursor.execute(query)
         airport_data = cursor.fetchone()
         response = jsonify(country=airport_data[0], airport_name=airport_data[1], topic_value=airport_data[2],
-                           latitude_deg=airport_data[3], longitude_deg=airport_data[4])
+                           latitude_deg=airport_data[3], longitude_deg=airport_data[4], iso_country=airport_data[5])
         return response
 
 
