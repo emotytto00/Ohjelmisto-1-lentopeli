@@ -409,9 +409,10 @@ lower_button.addEventListener('click', lower_button_onClick);
 
 /* map stuff */
 let map = L.map('map');
-map.setView([0, 0], 2);
+map.setView([57.5, 20], 4);
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  maxZoom: 19,
+  maxZoom: 15,
+  minZoom: 4,
   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
 }).addTo(map);
 
