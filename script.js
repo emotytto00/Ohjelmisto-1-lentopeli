@@ -164,6 +164,7 @@ async function init_left_side() {
   response = await response.json();
   current = response;
   points = 0;
+  update_score()
   shift_current_airport_to_left();
 }
 
@@ -212,6 +213,7 @@ function lower_button_onClick() {
 }
 
 function right_answer() {
+  correct.play();
   points++;
   if (points >= topics[current_topic][3]) {
     topics[current_topic][3] = points;
@@ -235,8 +237,8 @@ function update_topic() {
 }
 
 function wrong_answer() {
-  console.log('wrong answer');
-  end_game().then(() => init_left_side().then(() => new_airport()));
+  fail.play();
+  end_game().then(() => new_game_popup());
 }
 
 async function end_game() {
@@ -247,6 +249,24 @@ async function end_game() {
 
 function new_game_popup() {
   document.querySelector('dialog').showModal();
+}
+
+function Sound(src) {
+  this.Sound = document.createElement('audio');
+  this.Sound.src = src;
+  this.Sound.volume = 0.1;
+  this.Sound.setAttribute('preload', 'auto');
+  this.Sound.setAttribute('controls', 'none');
+  this.Sound.style.display = 'none';
+  document.body.appendChild(this.Sound);
+  this.play = function() {
+    this.Sound.load();
+    this.Sound.play();
+  };
+  this.stop = function() {
+    this.Sound.pause();
+  };
+
 }
 
 /* Notification count */
@@ -381,20 +401,19 @@ function check_unlocks() {
   }
   // Flights
   if (topics[2][3] === 5) {
-    unlockTheme(8);
+    unlockTheme(5);
   }
-
   // Star rating
   if (topics[3][3] === 5) {
-    unlockTheme(5);
+    unlockTheme(6);
   }
   // Rating amount
   if (topics[4][3] === 5) {
-    unlockTheme(6);
+    unlockTheme(7);
   }
   // Annual revenue
   if (topics[5][3] === 5) {
-    unlockTheme(7);
+    unlockTheme(8);
   }
 
 }
@@ -426,6 +445,8 @@ const highscore_target = document.querySelector('#highscore');
 
 higher_button.addEventListener('click', higher_button_onClick);
 lower_button.addEventListener('click', lower_button_onClick);
+const correct = new Sound('effects/correct.mp3');
+const fail = new Sound('effects/fail.mp3');
 
 /* Topic selector */
 document.querySelector('#topic_1').addEventListener('click', function() {
@@ -455,7 +476,7 @@ document.querySelector('#topic_5').addEventListener('click', function() {
 });
 document.querySelector('#start_game').addEventListener('click', () => {
   document.querySelector('dialog').close();
-  screen_name = document.querySelector('#screen_name').value
+  screen_name = document.querySelector('#screen_name').value;
   init_left_side().then(() => new_airport());
 }, {passive: true});
 document.querySelector('#new_game').addEventListener('click', new_game_popup);
@@ -488,10 +509,10 @@ function place_pins() {
       addTo(map);
 }
 
-async function display_leaderboard(){
-  let leaderB = await fetch('http://127.0.0.1:3000/leaderboard/' + topic[2]);
-  let response2 = await leaderB.json();
-  document.querySelector("#leaderboard").innerHTML = response2;
+async function display_leaderboard() {
+  const leaderB = await fetch('http://127.0.0.1:3000/leaderboard/' + topic[2]);
+  const response2 = await leaderB.json();
+  document.querySelector('#leaderboard').innerHTML = response2;
 }
 
 removeNotifications();
