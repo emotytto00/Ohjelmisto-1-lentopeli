@@ -141,13 +141,15 @@ h1 {
     text-shadow: #000000 1px 0 3px;
 }
 
-#topic {
+#middlebox {
     position: absolute;
-    padding: 1em;
-    width: 25%;
+    background: black;
+    width: 12%;
     left: 50%;
     text-align: center;
-    top: 7.5rem;
+    top: 14rem;
+    bottom: 16rem;
+    display: block;
     transform: translate(-50%);
     border-radius: 0.5rem;
     border-style: solid;
@@ -155,6 +157,34 @@ h1 {
     border-color: #ffffff;
 }
 
+#topic {
+    position: absolute;
+    text-align: center;
+    padding-right: 1rem;
+    padding-left: 1rem;
+
+
+}
+#pointcounter {
+    text-align: center;
+
+}
+#topicselect {
+    width: 0;
+    font-size: 0;
+    padding-top: 6rem;
+    position: static;
+
+}
+
+#topicbutton {
+    position: fixed;
+    width: 100%;
+
+}
+#topiccontent {
+    width: 100%;
+}
 .higher_btn, .lower_btn {
     box-shadow: 0 0 24px -8px #000000;
     border-radius: 10em;
