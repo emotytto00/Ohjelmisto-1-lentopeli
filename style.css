@@ -112,16 +112,35 @@ h1 {
 .game article {
     height: calc(80vh - 5rem);
     width: calc(50vw - 6rem);
-    background-image: url("images/no_image.png");
     margin: 2rem 2rem 2rem 2rem;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     padding-top: 7em;
-    border-radius: 2rem;
 }
-
+.left {
+    background-image: url("images/GamePictures/albania.jpg");
+    background-size: 100% 100%;
+    border-radius: 2rem;
+    height: calc(80vh - 5rem);
+    width: calc(50vw - 6rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+.right {
+    background-image: url("images/GamePictures/spain.jpg");
+    background-size: 100% 100%;
+    border-radius: 2rem;
+    height: calc(80vh - 5rem);
+    width: calc(50vw - 6rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
 /* elements of flex items */
 .game article p, .game article button {
     font-size: 2em;
