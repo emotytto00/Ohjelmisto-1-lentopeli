@@ -1,3 +1,5 @@
+'use strict';
+
 function increaseNotifications() {
   notifications++;
   for (let notification_indicator of notification_indicators) {
@@ -164,7 +166,7 @@ async function init_left_side() {
   response = await response.json();
   current = response;
   points = 0;
-  update_score()
+  update_score();
   shift_current_airport_to_left();
 }
 
@@ -176,15 +178,22 @@ async function new_airport() {
   async function get_new() {
     let response = await fetch('http://127.0.0.1:3000/airport/' + topic[0]);
     response = await response.json();
-    if (response === old) {
+    if (response['airport_name'] !== old['airport_name']) {
+      return response;
+    } else {
+      console.log('duplicate detected');
       await get_new();
-    } else return response;
+    }
+
   }
 
   let response = await get_new();
   current = response;
   right_one.innerHTML = response['country'];
   right_two.innerHTML = response['airport_name'];
+  document.querySelector('.right').
+      style.backgroundImage =
+      `url("images/GamePictures/${response['iso_country']}.jpg")`;
   higher = response['topic_value'] >= left_three.textContent;
   place_pins();
 }
@@ -194,6 +203,8 @@ function shift_current_airport_to_left() {
   left_one.innerHTML = current['country'];
   left_two.innerHTML = current['airport_name'];
   left_three.innerHTML = current['topic_value'];
+  document.querySelector('.left').style.backgroundImage =
+      `url("images/GamePictures/${current['iso_country']}.jpg")`;
 }
 
 function higher_button_onClick() {
@@ -522,6 +533,7 @@ unlockTheme(1); // Unlock default themes
 changeThemeTo(0); // Set theme to [0]
 update_score();
 update_highscore();
+update_topic();
 new_game_popup();
 display_leaderboard();
 
