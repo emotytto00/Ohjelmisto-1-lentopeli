@@ -196,6 +196,15 @@ function shift_current_airport_to_left() {
 /* higher variable can be used to determine what do with buttons
 * higher is either true of false
 * if higher is true, it means the airport on the right is higher */
+
+function higher_button_onClick() {
+
+}
+
+function lower_button_onClick() {
+
+}
+
 function right_answer() {
   /* TODO */
 }
@@ -278,10 +287,11 @@ const left_two = document.querySelector('#left-two');
 const left_three = document.querySelector('#left-three');
 const right_one = document.querySelector('#right-one');
 const right_two = document.querySelector('#right-two');
-/*
 const higher_button = document.querySelector('#higher_btn');
-const lower_button = document.querySelector('#lower_btn_btn');
-*/
+const lower_button = document.querySelector('#lower_btn');
+
+higher_button.addEventListener('click', higher_button_onClick())
+lower_button.addEventListener('click', lower_button_onClick())
 
 /* map stuff */
 let latitude1 = 60.192059;
