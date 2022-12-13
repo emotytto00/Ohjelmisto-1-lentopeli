@@ -1,4 +1,4 @@
-from sql import connection
+from config import connection
 
 connection = connection
 

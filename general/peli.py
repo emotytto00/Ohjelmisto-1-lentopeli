@@ -1,6 +1,6 @@
 import random
 import leaderboard
-from sql import connection
+from config import connection
 
 
 def print_topics():
