@@ -53,7 +53,7 @@ def leaderboard(topic):  # returns table of result. (best 10 sorted by points, a
 
 # Example:
 # /game_end?points=5&name=Jeff&topic=1
-@app.route('/game_end', methods=['POST'])
+@app.route('/game_end', methods=['GET'])
 def game_end():  # stores points and screen name in database
     with db.cursor() as cursor:
         args = request.args
