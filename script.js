@@ -460,29 +460,32 @@ const correct = new Sound('effects/correct.mp3');
 const fail = new Sound('effects/fail.mp3');
 
 /* audio event */
-const musicContainer = document.querySelector(".music-container")
-const playbtn = document.querySelector("#play")
-const audio = document.querySelector("#audio")
+const musicContainer = document.querySelector('.music-container');
+const playbtn = document.querySelector('#play');
+const audio = document.querySelector('#audio');
+
 function playSong() {
-  musicContainer.classList.add('play')
-  playbtn.querySelector('i.fas').classList.remove('fa-volume-mute')
-  playbtn.querySelector('i.fas').classList.add('fa-volume-up')
-  audio.play()
+  musicContainer.classList.add('play');
+  playbtn.querySelector('i.fas').classList.remove('fa-volume-mute');
+  playbtn.querySelector('i.fas').classList.add('fa-volume-up');
+  audio.play();
 }
+
 function pauseSong() {
-  musicContainer.classList.remove('play')
-  playbtn.querySelector('i.fas').classList.add('fa-volume-mute')
-  playbtn.querySelector('i.fas').classList.remove('fa-volume-up')
-  audio.pause()
+  musicContainer.classList.remove('play');
+  playbtn.querySelector('i.fas').classList.add('fa-volume-mute');
+  playbtn.querySelector('i.fas').classList.remove('fa-volume-up');
+  audio.pause();
 }
+
 playbtn.addEventListener('click', () => {
-  const isPlaying = musicContainer.classList.contains('play')
-  if(isPlaying) {
-    pauseSong()
+  const isPlaying = musicContainer.classList.contains('play');
+  if (isPlaying) {
+    pauseSong();
   } else {
-    playSong()
+    playSong();
   }
-})
+});
 
 /* Topic selector */
 document.querySelector('#topic_1').addEventListener('click', function() {
@@ -546,9 +549,20 @@ function place_pins() {
 }
 
 async function display_leaderboard() {
-  const leaderB = await fetch('http://127.0.0.1:3000/leaderboard/' + topic[2]);
-  const response2 = await leaderB.json();
-  document.querySelector('#leaderboard').innerHTML = response2;
+  const target = document.querySelector('#leaderboard');
+  let response = await fetch('http://127.0.0.1:3000/leaderboard/' + topic[2]);
+  response = await response.json();
+  response.forEach(e => {
+    const entry = document.createElement('div');
+    const score = document.createElement('p');
+    const name = document.createElement('p');
+    entry.setAttribute('class', 'leaderboard_entry accent_2')
+    score.appendChild(document.createTextNode(e[0]));
+    name.appendChild(document.createTextNode(e[1]));
+    entry.appendChild(score)
+    entry.appendChild(name)
+    target.appendChild(entry)
+  });
 }
 
 removeNotifications();
