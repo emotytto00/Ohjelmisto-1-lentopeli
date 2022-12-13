@@ -448,6 +448,31 @@ lower_button.addEventListener('click', lower_button_onClick);
 const correct = new Sound('effects/correct.mp3');
 const fail = new Sound('effects/fail.mp3');
 
+/* audio event */
+const musicContainer = document.querySelector(".music-container")
+const playbtn = document.querySelector("#play")
+const audio = document.querySelector("#audio")
+function playSong() {
+  musicContainer.classList.add('play')
+  playbtn.querySelector('i.fas').classList.remove('fa-volume-mute')
+  playbtn.querySelector('i.fas').classList.add('fa-volume-up')
+  audio.play()
+}
+function pauseSong() {
+  musicContainer.classList.remove('play')
+  playbtn.querySelector('i.fas').classList.add('fa-volume-mute')
+  playbtn.querySelector('i.fas').classList.remove('fa-volume-up')
+  audio.pause()
+}
+playbtn.addEventListener('click', () => {
+  const isPlaying = musicContainer.classList.contains('play')
+  if(isPlaying) {
+    pauseSong()
+  } else {
+    playSong()
+  }
+})
+
 /* Topic selector */
 document.querySelector('#topic_1').addEventListener('click', function() {
   current_topic = 1;
