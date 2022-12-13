@@ -163,6 +163,7 @@ async function init_left_side() {
   let response = await fetch('http://127.0.0.1:3000/airport/' + topic[0]);
   response = await response.json();
   current = response;
+  points = 0;
   shift_current_airport_to_left();
 }
 
@@ -194,29 +195,40 @@ function shift_current_airport_to_left() {
   left_three.innerHTML = current['topic_value'];
 }
 
-/* higher variable can be used to determine what do with buttons
-* higher is either true of false
-* if higher is true, it means the airport on the right is higher */
-
 function higher_button_onClick() {
-
+  if (higher) {
+    right_answer();
+  } else {
+    wrong_answer();
+  }
 }
 
 function lower_button_onClick() {
-
+  if (!higher) {
+    right_answer();
+  } else {
+    wrong_answer();
+  }
 }
 
 function right_answer() {
-  /* TODO */
+  points++;
+  if (points >= topics[current_topic][3]) {
+    topics[current_topic][3] = points;
+  }
+  check_unlocks();
+  new_airport().then(() => {});
 }
 
 function wrong_answer() {
-  /* TODO */
+  console.log('wrong answer');
+  end_game().then(() => init_left_side().then(() => new_airport()));
 }
 
 async function end_game() {
-  /* TODO */
-  `http://127.0.0.1:3000/game_end?points=${points}&name=${screen_name}&topic=${topic[2]}`;
+  await fetch(
+      `http://127.0.0.1:3000/game_end?points=${points}&name=${screen_name}&topic=${topic[2]}`);
+
 }
 
 /* Notification count */
@@ -236,7 +248,7 @@ const color_schemes = [
     a4_color: '#ffffff',
     a_hover_bg: '#2b79f5',
     a_hover_color: '#ffffff',
-    unlock_criteria: 'Start the game',
+    unlock_criteria: 'Open the game',
   }, {
     a1_bg_color: '#ffffff',
     a1_color: '#000000',
@@ -248,7 +260,7 @@ const color_schemes = [
     a4_color: '#ffffff',
     a_hover_bg: '#ea0000',
     a_hover_color: '#000000',
-    unlock_criteria: 'Start the game',
+    unlock_criteria: 'Open the game',
   }, {
     a1_bg_color: '#ff006e',
     a1_color: '#ffffff',
@@ -261,28 +273,129 @@ const color_schemes = [
     a_hover_bg: '#ff006e',
     a_hover_color: '#ffffff',
     unlock_criteria: 'Find the secret div',
-  }];
+  }, {
+    a1_bg_color: '#ffffff',
+    a1_color: '#000000',
+    a2_bg_color: '#000000',
+    a2_color: '#ffffff',
+    a3_bg_color: '#000000',
+    a3_color: '#ffffff',
+    a4_bg_color: 'rgba(0,0,0,0.67)',
+    a4_color: '#ffffff',
+    a_hover_bg: '#ffffff',
+    a_hover_color: '#ff0000',
+    unlock_criteria: 'Score 5 points on \'Elevation from sea level\'',
+  }, {
+    a1_bg_color: '#000000',
+    a1_color: '#ffffff',
+    a2_bg_color: '#ffffff',
+    a2_color: '#000000',
+    a3_bg_color: '#ffffff',
+    a3_color: '#000000',
+    a4_bg_color: 'rgba(255,255,255,0.67)',
+    a4_color: '#000000',
+    a_hover_bg: '#000000',
+    a_hover_color: '#ff0000',
+    unlock_criteria: 'Score 10 points on \'Elevation from sea level\'',
+  }, {
+    a1_bg_color: '#5bc7ef',
+    a1_color: '#ffffff',
+    a2_bg_color: '#eca4b2',
+    a2_color: '#ffffff',
+    a3_bg_color: '#f7f7f7',
+    a3_color: '#000000',
+    a4_bg_color: 'rgb(236,164,178)',
+    a4_color: '#ffffff',
+    a_hover_bg: '#5bc7ef',
+    a_hover_color: '#ffffff',
+    unlock_criteria: 'Score 5 points on \'Flights\'',
+  }, {
+    a1_bg_color: '#2b79f5',
+    a1_color: '#ffffff',
+    a2_bg_color: '#5196ff',
+    a2_color: '#ffffff',
+    a3_bg_color: '#2b79f5',
+    a3_color: '#000000',
+    a4_bg_color: 'rgb(43,121,245)',
+    a4_color: '#ffffff',
+    a_hover_bg: '#033f9f',
+    a_hover_color: '#ffffff',
+    unlock_criteria: 'Score 5 points on \'Average Google star rating\'',
+  }, {
+    a1_bg_color: '#555e73',
+    a1_color: '#ffffff',
+    a2_bg_color: '#9daed8',
+    a2_color: '#ffffff',
+    a3_bg_color: '#9daed6',
+    a3_color: '#000000',
+    a4_bg_color: 'rgb(221,198,190)',
+    a4_color: '#ffffff',
+    a_hover_bg: '#c6cad2',
+    a_hover_color: '#ffffff',
+    unlock_criteria: 'Score 5 points on \'Review Amount\'',
+  }, {
+    a1_bg_color: '#ff0000',
+    a1_color: '#ffffff',
+    a2_bg_color: '#ffd400',
+    a2_color: '#ffffff',
+    a3_bg_color: '#0fb90a',
+    a3_color: '#000000',
+    a4_bg_color: 'rgb(46,108,255)',
+    a4_color: '#ffffff',
+    a_hover_bg: '#2e6cff',
+    a_hover_color: '#ffffff',
+    unlock_criteria: 'Score 5 points on \'Annual revenue\'',
+  },
+];
 
-/* Secret theme unlock */
+/* Theme unlocks */
 document.querySelector('#secret').addEventListener('click', function() {
   unlockTheme(2);
 });
 
+function check_unlocks() {
+  // Elevation
+  if (topics[1][3] === 5) {
+    unlockTheme(3);
+  }
+  if (topics[1][3] === 10) {
+    unlockTheme(4);
+  }
+  // Flights
+  if (topics[2][3] === 5) {
+    unlockTheme(8);
+  }
+
+  // Star rating
+  if (topics[3][3] === 5) {
+    unlockTheme(5);
+  }
+  // Rating amount
+  if (topics[4][3] === 5) {
+    unlockTheme(6);
+  }
+  // Annual revenue
+  if (topics[5][3] === 5) {
+    unlockTheme(7);
+  }
+
+}
+
 /* Elements and variables globally declared for convenience */
 const topics = {
-  1: ['elevation_ft', 'Elevation from sea level', '1'],
-  2: ['flights', 'Daily flights', '2'],
-  3: ['rating', 'Average Google star rating', '3'],
-  4: ['review_amount', 'Amount of reviews on Google', '4'],
-  5: ['revenue', 'Annual revenue', '5'],
+  1: ['elevation_ft', 'Elevation from sea level', '1', 0],
+  2: ['flights', 'Daily flights', '2', 0],
+  3: ['rating', 'Average Google star rating', '3', 0],
+  4: ['review_amount', 'Amount of reviews on Google', '4', 0],
+  5: ['revenue', 'Annual revenue', '5', 0],
 };
-let topic = topics[1];
+let current_topic = 1;
+let topic = topics[current_topic];
 let higher;
 let current;
 let old;
-
-let screen_name;
-let points;
+let screen_name = 'Jeff';
+let points = 0;
 const left_one = document.querySelector('#left-one');
 const left_two = document.querySelector('#left-two');
 const left_three = document.querySelector('#left-three');
@@ -291,35 +404,36 @@ const right_two = document.querySelector('#right-two');
 const higher_button = document.querySelector('#higher_btn');
 const lower_button = document.querySelector('#lower_btn');
 
-higher_button.addEventListener('click', higher_button_onClick())
-lower_button.addEventListener('click', lower_button_onClick())
+higher_button.addEventListener('click', higher_button_onClick);
+lower_button.addEventListener('click', lower_button_onClick);
 
 /* map stuff */
-
 let map = L.map('map');
 map.setView([0, 0], 2);
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 19,
   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
 }).addTo(map);
+
 function place_pins() {
-    const lat1 = current['latitude_deg']
-    const lat2 = old['latitude_deg']
-    const lng1 = current['longitude_deg']
-    const lng2 = old['longitude_deg']
-    const airp1 = current['airport_name']
-    const airp2 = old['airport_name']
-    const c1 = current['country']
-    const c2 = old['country']
-    L.marker([lat1, lng1]).
-        bindPopup(`<b>${c1}</b><br>${airp1}`).
-        openPopup().
-        addTo(map);
-    L.marker([lat2, lng2]).
-        bindPopup(`<b>${c2}</b><br>${airp2}`).
-        openPopup().
-        addTo(map);
+  const lat1 = current['latitude_deg'];
+  const lat2 = old['latitude_deg'];
+  const lng1 = current['longitude_deg'];
+  const lng2 = old['longitude_deg'];
+  const airp1 = current['airport_name'];
+  const airp2 = old['airport_name'];
+  const c1 = current['country'];
+  const c2 = old['country'];
+  L.marker([lat1, lng1]).
+      bindPopup(`<b>${c1}</b><br>${airp1}`).
+      openPopup().
+      addTo(map);
+  L.marker([lat2, lng2]).
+      bindPopup(`<b>${c2}</b><br>${airp2}`).
+      openPopup().
+      addTo(map);
 }
+
 removeNotifications();
 themeButtons(); // Create theme buttons
 unlockTheme(0); // Unlock default themes
@@ -327,3 +441,13 @@ unlockTheme(1); // Unlock default themes
 changeThemeTo(0); // Set theme to [0]
 init_left_side().then(() => new_airport());
 
+/* DEBUGGING/CHEAT: */
+document.querySelector('h1').addEventListener('click', function() {
+  unlockTheme(2);
+  unlockTheme(3);
+  unlockTheme(4);
+  unlockTheme(5);
+  unlockTheme(6);
+  unlockTheme(7);
+  unlockTheme(8);
+});
