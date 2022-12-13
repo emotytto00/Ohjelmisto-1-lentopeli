@@ -86,7 +86,6 @@ h1 {
     min-width: 160px;
     box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.2);
     z-index: 1001;
-
 }
 
 .dropdown:hover .dropdown-content {
@@ -165,10 +164,12 @@ h1 {
 
 
 }
+
 #pointcounter {
     text-align: center;
 
 }
+
 #topicselect {
     width: 0;
     font-size: 0;
@@ -180,11 +181,18 @@ h1 {
 #topicbutton {
     position: fixed;
     width: 100%;
-
+    font-family: 'Atkinson Hyperlegible', sans-serif;
+    font-size: 1.2rem;
+    line-height: 2rem;
 }
+
 #topiccontent {
     width: 100%;
+    font-size: .9rem;
+    line-height: 3rem;
+    text-align: center;
 }
+
 .higher_btn, .lower_btn {
     box-shadow: 0 0 24px -8px #000000;
     border-radius: 10em;
@@ -221,6 +229,7 @@ h1 {
     position: relative;
     top: 1px;
 }
+
 #themes, #leaderboard {
     height: 100vh;
     padding: 5rem 2rem 2rem 2rem;
@@ -275,10 +284,12 @@ h1 {
     display: flex;
     padding-top: 8rem;
 }
+
 #map {
     height: 80vh;
     width: 80vw;
 }
+
 .leaflet-pane {
     z-index: 1;
 }
