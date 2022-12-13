@@ -215,9 +215,23 @@ function right_answer() {
   points++;
   if (points >= topics[current_topic][3]) {
     topics[current_topic][3] = points;
+    update_highscore();
   }
+  update_score();
   check_unlocks();
   new_airport().then(() => {});
+}
+
+function update_score() {
+  points_target.innerHTML = points.toString();
+}
+
+function update_highscore() {
+  highscore_target.innerHTML = points.toString();
+}
+
+function update_topic() {
+  document.querySelector('#topic').innerHTML = topic[1]
 }
 
 function wrong_answer() {
@@ -403,9 +417,40 @@ const right_one = document.querySelector('#right-one');
 const right_two = document.querySelector('#right-two');
 const higher_button = document.querySelector('#higher_btn');
 const lower_button = document.querySelector('#lower_btn');
+const points_target = document.querySelector('#points');
+const highscore_target = document.querySelector('#highscore');
 
 higher_button.addEventListener('click', higher_button_onClick);
 lower_button.addEventListener('click', lower_button_onClick);
+
+/* Topic selector */
+document.querySelector('#topic_1').addEventListener('click', function() {
+  current_topic = 1;
+  topic = topics[current_topic];
+  update_topic()
+});
+document.querySelector('#topic_2').addEventListener('click', function() {
+  current_topic = 2;
+  topic = topics[current_topic];
+  update_topic()
+})
+document.querySelector('#topic_3').addEventListener('click', function() {
+  current_topic = 3;
+  topic = topics[current_topic];
+  update_topic()
+});
+document.querySelector('#topic_4').addEventListener('click', function() {
+  current_topic = 4;
+  topic = topics[current_topic];
+  update_topic()
+});
+document.querySelector('#topic_5').addEventListener('click', function() {
+  current_topic = 5;
+  topic = topics[current_topic];
+  update_topic()
+});
+
+
 
 /* map stuff */
 let map = L.map('map');
@@ -440,6 +485,8 @@ themeButtons(); // Create theme buttons
 unlockTheme(0); // Unlock default themes
 unlockTheme(1); // Unlock default themes
 changeThemeTo(0); // Set theme to [0]
+update_score();
+update_highscore();
 init_left_side().then(() => new_airport());
 
 /* DEBUGGING/CHEAT: */
