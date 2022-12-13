@@ -158,6 +158,57 @@ function unlockTheme(theme_index) {
   increaseNotifications();
 }
 
+/* Gets random airport for the left side */
+async function init_left_side() {
+  let response = await fetch('http://127.0.0.1:3000/airport/' + topic[0]);
+  response = await response.json();
+  current = response;
+  shift_current_airport_to_left();
+}
+
+/* Gets random airport for the right side */
+async function new_airport() {
+  shift_current_airport_to_left();
+
+  async function get_new() {
+    let response = await fetch('http://127.0.0.1:3000/airport/' + topic[0]);
+    response = await response.json();
+    if (response['airport_name'] === left_two.textContent) {
+      await get_new();
+    } else return response;
+  }
+
+  let response = await get_new();
+  current = response;
+  right_one.innerHTML = response['country'];
+  right_two.innerHTML = response['airport_name'];
+  higher = response['topic_value'] >= left_three.textContent;
+}
+
+/* Moves right airport to the left */
+function shift_current_airport_to_left() {
+  left_one.innerHTML = current['country'];
+  left_two.innerHTML = current['airport_name'];
+  left_three.innerHTML = current['topic_value'];
+}
+
+
+/* higher variable can be used to determine what do with buttons
+* higher is either true of false
+* if higher is true, it means the airport on the right is higher */
+function right_answer() {
+  /* TODO */
+}
+
+function wrong_answer() {
+  /* TODO */
+}
+
+async function end_game() {
+  /* TODO */
+  `http://127.0.0.1:3000/game_end?points=${points}&name=${screen_name}&topic=${topic[2]}`;
+}
+
 /* Notification count */
 const notification_indicators = document.querySelectorAll('.notification');
 let notifications = 0;
@@ -207,28 +258,58 @@ document.querySelector('#secret').addEventListener('click', function() {
   unlockTheme(2);
 });
 
-/* map stuff */
-let latitude1 = 60.192059
-let longitude1 = 24.945831
-let latitude2 = 34.052235
-let longitude2 = -118.243683
-let country1 = "finlander"
-let country2 = "ameriga"
-let airport1 = "helsinki airpot"
-let airport2 = "losangeles mega airport"
+/* Elements and variables globally declared for convenience */
+const topics = {
+  1: ['elevation_ft', 'Elevation from sea level', '1'],
+  2: ['flights', 'Daily flights', '2'],
+  3: ['rating', 'Average Google star rating', '3'],
+  4: ['review_amount', 'Amount of reviews on Google', '4'],
+  5: ['revenue', 'Annual revenue', '5'],
+};
+let topic = topics[1];
+console.log(topic[2]);
+let higher;
+let current;
+let screen_name;
+let points;
+const left_one = document.querySelector('#left-one');
+const left_two = document.querySelector('#left-two');
+const left_three = document.querySelector('#left-three');
+const right_one = document.querySelector('#right-one');
+const right_two = document.querySelector('#right-two');
+/*
+const higher_button = document.querySelector('#higher_btn');
+const lower_button = document.querySelector('#lower_btn_btn');
+*/
 
-let map = L.map('map')
+/* map stuff */
+let latitude1 = 60.192059;
+let longitude1 = 24.945831;
+let latitude2 = 34.052235;
+let longitude2 = -118.243683;
+let country1 = 'finlander';
+let country2 = 'ameriga';
+let airport1 = 'helsinki airpot';
+let airport2 = 'losangeles mega airport';
+
+let map = L.map('map');
 map.setView([0, 0], 2);
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+  maxZoom: 19,
+  attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
 }).addTo(map);
-L.marker([latitude1, longitude1]).bindPopup(`<b>${country1}</b><br>${airport1}`).openPopup().addTo(map);
-L.marker([latitude2,longitude2]).bindPopup(`<b>${country2}</b><br>${airport2}`).openPopup().addTo(map);
-
+L.marker([latitude1, longitude1]).
+    bindPopup(`<b>${country1}</b><br>${airport1}`).
+    openPopup().
+    addTo(map);
+L.marker([latitude2, longitude2]).
+    bindPopup(`<b>${country2}</b><br>${airport2}`).
+    openPopup().
+    addTo(map);
 
 removeNotifications();
 themeButtons(); // Create theme buttons
 unlockTheme(0); // Unlock default themes
 unlockTheme(1); // Unlock default themes
 changeThemeTo(0); // Set theme to [0]
+init_left_side().then(() => new_airport());
