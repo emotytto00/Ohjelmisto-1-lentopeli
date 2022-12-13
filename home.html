@@ -41,17 +41,8 @@
 <main id="game">
     <div class="game accent_3">
         <div id="middlebox" class="accent_2">
-            <h2 id="topic" class="accent_2">Elevation from sea level</h2>
-            <div id="topicselect" class="dropdown accent_2">
-                <button id="topicbutton" class="accent_1">Change topic</button>
-                <div id="topiccontent" class="dropdown-content accent_1">
-                    <a id="topic_1" class="accent_hover">Elevation from sea level</a>
-                    <a id="topic_2" class="accent_hover">Daily flights</a>
-                    <a id="topic_3" class="accent_hover">Average Google star rating</a>
-                    <a id="topic_4" class="accent_hover">Amount of reviews on Google</a>
-                    <a id="topic_5" class="accent_hover">Annual revenue</a>
-                </div>
-            </div>
+            <h2 class="accent_2 topic">Topic</h2>
+            <a id="new_game" class="accent_1">New Game</a>
             <div id="pointcounter" class="accent_2">
                 <p>Score :</p>
                 <p id="points">0</p>
@@ -90,5 +81,23 @@
 <div id="leaderboard" class="accent_1">
     <p>TODO: leaderboard here</p>
 </div>
+<dialog class="accent_3">
+    <h2 class="accent_2 topic">Topic</h2>
+    <div id="topicselect" class="dropdown accent_2">
+        <button id="topicbutton" class="accent_1">Change topic</button>
+        <div id="topiccontent" class="dropdown-content accent_1">
+            <a id="topic_1" class="accent_hover">Elevation from sea level</a>
+            <a id="topic_2" class="accent_hover">Daily flights</a>
+            <a id="topic_3" class="accent_hover">Average Google star rating</a>
+            <a id="topic_4" class="accent_hover">Amount of reviews on Google</a>
+            <a id="topic_5" class="accent_hover">Annual revenue</a>
+        </div>
+    </div>
+    <label>Screen name:
+        <input id="screen_name" autocomplete="off">
+    </label>
+    <br>
+    <button id="start_game" class="accent_1">Start Game</button>
+</dialog>
 </body>
 </html>
