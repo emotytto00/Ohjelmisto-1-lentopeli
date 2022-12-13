@@ -182,13 +182,25 @@ h1 {
     left: 50%;
     text-align: center;
     top: 14rem;
-    bottom: 16rem;
+    bottom: 18.5rem;
     display: block;
     transform: translate(-50%);
     border-radius: 0.5rem;
-    border-style: solid;
-    border-width: medium;
-    border-color: #ffffff;
+    border-style: outset;
+    border-width: 0.5rem;
+    border-color: #a8a8a8;
+}
+
+#midh2 {
+    font-size: 2rem;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    border-width: 0.2rem;
+    border-style: outset;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    margin: 0;
 }
 
 .topic {
@@ -198,12 +210,50 @@ h1 {
 }
 
 #new_game {
-    width: 100%;
-    padding: .1rem 2rem .1rem 2rem;
+    font-size: 2rem;
+    font-weight: bold;
+    padding: .5rem 1rem .5rem 1rem;
+    border-radius: 1.5rem;
+    border-width: medium;
+    border-style: dashed;
+    border-color: #575757;
 }
 
 #pointcounter {
     text-align: center;
+    font-size: 2rem;
+}
+
+#scoretext {
+    padding-top: 0.5rem;
+    margin: 0;
+    font-weight: bold;
+}
+
+#points {
+    margin: 0;
+    border-bottom-width: 0.2rem;
+    border-style: outset;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    padding-bottom: 0.5rem;
+}
+
+#highscoretext {
+    padding-top: 0.5rem;
+    margin: 0;
+    font-weight: bold;
+}
+
+#highscore {
+    margin: 0 0 1.5rem 0;
+    border-bottom-width: 0.2rem;
+    border-style: outset;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    padding-bottom: 0.5rem;
 }
 
 dialog {
