@@ -184,6 +184,7 @@ async function new_airport() {
   right_one.innerHTML = response['country'];
   right_two.innerHTML = response['airport_name'];
   higher = response['topic_value'] >= left_three.textContent;
+  place_pins();
 }
 
 /* Moves right airport to the left */
@@ -284,14 +285,6 @@ const lower_button = document.querySelector('#lower_btn_btn');
 */
 
 /* map stuff */
-let latitude1 = 60.192059;
-let longitude1 = 24.945831;
-let latitude2 = 34.052235;
-let longitude2 = -118.243683;
-let country1 = 'finlander';
-let country2 = 'ameriga';
-let airport1 = 'helsinki airpot';
-let airport2 = 'losangeles mega airport';
 
 let map = L.map('map');
 map.setView([0, 0], 2);
@@ -299,18 +292,28 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 19,
   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
 }).addTo(map);
-L.marker([latitude1, longitude1]).
-    bindPopup(`<b>${country1}</b><br>${airport1}`).
-    openPopup().
-    addTo(map);
-L.marker([latitude2, longitude2]).
-    bindPopup(`<b>${country2}</b><br>${airport2}`).
-    openPopup().
-    addTo(map);
-
+function place_pins() {
+    const lat1 = current['latitude_deg']
+    const lat2 = old['latitude_deg']
+    const lng1 = current['longitude_deg']
+    const lng2 = old['longitude_deg']
+    const airp1 = current['airport_name']
+    const airp2 = old['airport_name']
+    const c1 = current['country']
+    const c2 = old['country']
+    L.marker([lat1, lng1]).
+        bindPopup(`<b>${c1}</b><br>${airp1}`).
+        openPopup().
+        addTo(map);
+    L.marker([lat2, lng2]).
+        bindPopup(`<b>${c2}</b><br>${airp2}`).
+        openPopup().
+        addTo(map);
+}
 removeNotifications();
 themeButtons(); // Create theme buttons
 unlockTheme(0); // Unlock default themes
 unlockTheme(1); // Unlock default themes
 changeThemeTo(0); // Set theme to [0]
 init_left_side().then(() => new_airport());
+
