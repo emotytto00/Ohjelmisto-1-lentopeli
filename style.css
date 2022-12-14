@@ -185,17 +185,15 @@ h1 {
     position: absolute;
     background: black;
     width: 12%;
-    height: 48.5vh;
     left: 50%;
     text-align: center;
-    top: 14rem;
-    bottom: 18.5rem;
     display: block;
     transform: translate(-50%);
     border-radius: 0.5rem;
     border-style: outset;
     border-width: 0.5rem;
     border-color: #a8a8a8;
+    padding-bottom: 1rem;
 }
 
 #midh2 {
@@ -217,7 +215,7 @@ h1 {
 }
 
 #new_game {
-    font-size: 2rem;
+    font-size: 1.3rem;
     font-weight: bold;
     padding: .5rem 1rem .5rem 1rem;
     border-radius: 1.5rem;
@@ -254,7 +252,7 @@ h1 {
 }
 
 #highscore {
-    margin: 0 0 1.5rem 0;
+    margin: 0 0 1rem 0;
     border-bottom-width: 0.2rem;
     border-style: outset;
     border-left-width: 0;
