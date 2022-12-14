@@ -272,6 +272,7 @@ dialog {
 
 #topich2 {
     font-size: 4rem;
+    margin: 0;
 }
 
 #topicselect {
@@ -317,7 +318,6 @@ label {
     display: flex;
     justify-content: center;
     align-items: center;
-    top: 5rem;
     position: relative;
     font-size: 2rem;
     font-weight: bold;
@@ -336,7 +336,6 @@ label {
     display: flex;
     justify-content: center;
     align-items: center;
-    top: 12rem;
     font-size: 4rem;
     border-width: 1rem;
     border-color: whitesmoke;
@@ -503,6 +502,7 @@ input[type=text]:focus::placeholder {
 }
 
 #points_display {
+    margin: 0;
     font-size: 4rem;
     padding-bottom: 1rem;
     text-align: center;
