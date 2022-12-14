@@ -30,7 +30,8 @@ def new_higher_lower(topic):
     with db.cursor() as cursor:
         from random import randrange
         random_country_id = randrange(0, config.AIRPORT_AMOUNT)
-        query = f"SELECT country.name, europe_airport.name, {topic}, latitude_deg, longitude_deg, europe_airport.iso_country " \
+        query = f"SELECT country.name, europe_airport.name, {topic}, " \
+                f"latitude_deg, longitude_deg, europe_airport.iso_country " \
                 f"FROM country, europe_airport " \
                 f"WHERE europe_airport.id='{random_country_id}' AND country.iso_country=europe_airport.iso_country"
         cursor.execute(query)
