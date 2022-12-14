@@ -275,16 +275,17 @@ dialog {
 }
 
 #topicselect {
+    position: relative;
     display: flex;
-    width: 100%;
+    width: 20%;
+    left: 40%;
     font-size: 0;
-    position: static;
     justify-content: center;
     align-items: center;
 }
 
 #topicbutton {
-    width: 20%;
+    width: 100%;
     height: 10%;
     padding: 1rem 1rem 1rem 1rem;
     border-radius: 1rem;
@@ -296,7 +297,7 @@ dialog {
 }
 
 #topiccontent {
-    width: 60%;
+    width: 50vw;
     font-size: 3.5rem;
     text-align: center;
     border-radius: 2rem;
