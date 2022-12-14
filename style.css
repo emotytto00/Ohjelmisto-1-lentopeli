@@ -222,7 +222,6 @@ dialog {
 
 #topich2 {
     font-size: 4rem;
-    padding-bottom: 4rem;
 }
 
 #topicselect {
@@ -275,8 +274,8 @@ label {
 }
 
 #screen_name {
-    margin: 0 0 0 1rem;
-    width: 15%;
+    margin: 0;
+    width: 19%;
     padding: 1rem 0.5rem 1rem 0.5rem;
 }
 
@@ -286,7 +285,7 @@ label {
     display: flex;
     justify-content: center;
     align-items: center;
-    top: 6rem;
+    top: 12rem;
     font-size: 4rem;
     border-width: 1rem;
     border-color: whitesmoke;
@@ -450,4 +449,11 @@ input[type=text]:focus::placeholder {
 #leaderboard_topic {
     font-size: 3rem;
     margin: 0;
+}
+
+#points_display {
+    font-size: 4rem;
+    padding-bottom: 1rem;
+    text-align: center;
+    visibility: hidden;
 }

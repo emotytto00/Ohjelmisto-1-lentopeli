@@ -182,7 +182,7 @@ async function new_airport() {
       return response;
     } else {
       console.log('duplicate detected');
-      await get_new();
+      return response;
     }
 
   }
@@ -194,7 +194,7 @@ async function new_airport() {
   document.querySelector('.right').
       style.backgroundImage =
       `url("images/GamePictures/${response['iso_country']}.jpg")`;
-  higher = response['topic_value'] >= left_three.textContent;
+  higher = response['topic_value'] >= old['topic_value'];
   place_pins();
 }
 
@@ -249,6 +249,8 @@ function update_topic() {
 
 function wrong_answer() {
   fail.play();
+  points_display.innerHTML = `Score: ${points}`;
+  points_display.style.visibility = 'visible';
   end_game().then(() => new_game_popup());
 }
 
@@ -453,6 +455,7 @@ const higher_button = document.querySelector('#higher_btn');
 const lower_button = document.querySelector('#lower_btn');
 const points_target = document.querySelector('#points');
 const highscore_target = document.querySelector('#highscore');
+const points_display = document.querySelector('#points_display');
 
 higher_button.addEventListener('click', higher_button_onClick);
 lower_button.addEventListener('click', lower_button_onClick);
@@ -468,6 +471,7 @@ function playSong() {
   musicContainer.classList.add('play');
   playbtn.querySelector('i.fas').classList.remove('fa-volume-mute');
   playbtn.querySelector('i.fas').classList.add('fa-volume-up');
+  audio.volume = 0.1;
   audio.play();
 }
 
@@ -514,9 +518,11 @@ document.querySelector('#topic_5').addEventListener('click', function() {
   update_topic();
 });
 document.querySelector('#start_game').addEventListener('click', () => {
-  document.querySelector('dialog').close();
-  screen_name = document.querySelector('#screen_name').value;
-  init_left_side().then(() => new_airport());
+  if (document.querySelector('#screen_name').value != '') {
+    document.querySelector('dialog').close();
+    screen_name = document.querySelector('#screen_name').value;
+    init_left_side().then(() => new_airport());
+  }
 }, {passive: true});
 document.querySelector('#new_game').addEventListener('click', new_game_popup);
 
@@ -556,12 +562,12 @@ async function display_leaderboard() {
     const entry = document.createElement('div');
     const score = document.createElement('p');
     const name = document.createElement('p');
-    entry.setAttribute('class', 'leaderboard_entry accent_2')
+    entry.setAttribute('class', 'leaderboard_entry accent_2');
     score.appendChild(document.createTextNode(e[0]));
     name.appendChild(document.createTextNode(e[1]));
-    entry.appendChild(score)
-    entry.appendChild(name)
-    target.appendChild(entry)
+    entry.appendChild(score);
+    entry.appendChild(name);
+    target.appendChild(entry);
   });
 }
 
