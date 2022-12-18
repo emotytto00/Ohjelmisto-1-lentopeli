@@ -4,7 +4,7 @@ import mysql.connector
 from dotenv import load_dotenv
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-
+from random import randrange
 import config
 
 load_dotenv()
@@ -26,7 +26,6 @@ last_5_airports = [0 for i in range(5)]
 
 
 def new_country_id():
-    from random import randrange
     random_country_id = 0
 
     while random_country_id in last_5_airports:
@@ -43,14 +42,17 @@ def new_country_id():
 @app.route('/airport/<topic>', methods=['GET'])
 def new_higher_lower(topic):
     with db.cursor() as cursor:
+        country_id = new_country_id()
         query = f"SELECT country.name, europe_airport.name, {topic}, " \
                 f"latitude_deg, longitude_deg, europe_airport.iso_country " \
                 f"FROM country, europe_airport " \
-                f"WHERE europe_airport.id='{new_country_id()}' AND country.iso_country=europe_airport.iso_country"
+                f"WHERE europe_airport.id='{country_id}' AND country.iso_country=europe_airport.iso_country " \
+                f"LIMIT 1"
         cursor.execute(query)
         airport_data = cursor.fetchone()
         response = jsonify(country=airport_data[0], airport_name=airport_data[1], topic_value=airport_data[2],
                            latitude_deg=airport_data[3], longitude_deg=airport_data[4], iso_country=airport_data[5])
+        cursor.reset()
         return response
 
 
