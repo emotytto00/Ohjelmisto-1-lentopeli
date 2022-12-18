@@ -1,5 +1,11 @@
 'use strict';
 
+async function fetchJson(url, options = {}) {
+  const response = await fetch(url, options);
+  if (!response.ok) throw new Error('Invalid input');
+  return await response.json();
+}
+
 function increaseNotifications() {
   notifications++;
   for (let notification_indicator of notification_indicators) {
@@ -162,9 +168,7 @@ function unlockTheme(theme_index) {
 
 /* Gets random airport for the left side */
 async function init_left_side() {
-  let response = await fetch('http://127.0.0.1:3000/airport/' + topic[0]);
-  response = await response.json();
-  current = response;
+  current = await fetchJson('http://127.0.0.1:3000/airport/' + topic[0]);
   points = 0;
   update_score();
   shift_current_airport_to_left();
@@ -174,20 +178,7 @@ async function init_left_side() {
 async function new_airport() {
   old = current;
   shift_current_airport_to_left();
-
-  async function get_new() {
-    let response = await fetch('http://127.0.0.1:3000/airport/' + topic[0]);
-    response = await response.json();
-    if (response['airport_name'] !== old['airport_name']) {
-      return response;
-    } else {
-      console.log('duplicate detected');
-      return response;
-    }
-
-  }
-
-  let response = await get_new();
+  let response = await fetchJson('http://127.0.0.1:3000/airport/' + topic[0]);
   current = response;
   right_one.innerHTML = response['country'];
   right_two.innerHTML = response['airport_name'];
@@ -255,7 +246,7 @@ function wrong_answer() {
 }
 
 async function end_game() {
-  await fetch(
+  await fetchJson(
       `http://127.0.0.1:3000/game_end?points=${points}&name=${screen_name}&topic=${topic[2]}`);
 
 }
@@ -274,12 +265,8 @@ function Sound(src) {
   document.body.appendChild(this.Sound);
   this.play = function() {
     this.Sound.load();
-    this.Sound.play();
+    this.Sound.play().then();
   };
-  this.stop = function() {
-    this.Sound.pause();
-  };
-
 }
 
 /* Notification count */
@@ -355,7 +342,7 @@ const color_schemes = [
     a2_color: '#ffffff',
     a3_bg_color: '#f7f7f7',
     a3_color: '#000000',
-    a4_bg_color: 'rgb(236,164,178)',
+    a4_bg_color: 'rgba(236,164,178,0.67)',
     a4_color: '#ffffff',
     a_hover_bg: '#5bc7ef',
     a_hover_color: '#ffffff',
@@ -367,7 +354,7 @@ const color_schemes = [
     a2_color: '#ffffff',
     a3_bg_color: '#2b79f5',
     a3_color: '#000000',
-    a4_bg_color: 'rgb(43,121,245)',
+    a4_bg_color: 'rgba(43,121,245,0.67)',
     a4_color: '#ffffff',
     a_hover_bg: '#033f9f',
     a_hover_color: '#ffffff',
@@ -379,7 +366,7 @@ const color_schemes = [
     a2_color: '#ffffff',
     a3_bg_color: '#9daed6',
     a3_color: '#000000',
-    a4_bg_color: 'rgb(221,198,190)',
+    a4_bg_color: 'rgba(221,198,190,0.67)',
     a4_color: '#ffffff',
     a_hover_bg: '#c6cad2',
     a_hover_color: '#ffffff',
@@ -391,7 +378,7 @@ const color_schemes = [
     a2_color: '#ffffff',
     a3_bg_color: '#0fb90a',
     a3_color: '#000000',
-    a4_bg_color: 'rgb(46,108,255)',
+    a4_bg_color: 'rgba(46,108,255,0.67)',
     a4_color: '#ffffff',
     a_hover_bg: '#2e6cff',
     a_hover_color: '#ffffff',
@@ -412,23 +399,26 @@ function check_unlocks() {
   if (topics[1][3] === 10) {
     unlockTheme(4);
   }
+
   // Flights
   if (topics[2][3] === 5) {
     unlockTheme(5);
   }
+
   // Star rating
   if (topics[3][3] === 5) {
     unlockTheme(6);
   }
+
   // Rating amount
   if (topics[4][3] === 5) {
     unlockTheme(7);
   }
+
   // Annual revenue
   if (topics[5][3] === 5) {
     unlockTheme(8);
   }
-
 }
 
 /* Elements and variables globally declared for convenience */
@@ -518,9 +508,10 @@ document.querySelector('#topic_5').addEventListener('click', function() {
   update_topic();
 });
 document.querySelector('#start_game').addEventListener('click', () => {
-  if (document.querySelector('#screen_name').value != '') {
+  if (document.querySelector('#screen_name').value !== '') {
     document.querySelector('dialog').close();
     screen_name = document.querySelector('#screen_name').value;
+    display_leaderboard().then();
     init_left_side().then(() => new_airport());
   }
 }, {passive: true});
@@ -556,8 +547,8 @@ function place_pins() {
 
 async function display_leaderboard() {
   const target = document.querySelector('#leaderboard');
-  let response = await fetch('http://127.0.0.1:3000/leaderboard/' + topic[2]);
-  response = await response.json();
+  target.innerHTML = '';
+  let response = await fetchJson('http://127.0.0.1:3000/leaderboard/' + topic[2]);
   response.forEach(e => {
     const entry = document.createElement('div');
     const score = document.createElement('p');
@@ -580,7 +571,6 @@ update_score();
 update_highscore();
 update_topic();
 new_game_popup();
-display_leaderboard();
 
 /* DEBUGGING/CHEAT: */
 document.querySelector('h1').addEventListener('click', function() {
