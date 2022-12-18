@@ -29,7 +29,7 @@ def new_country_id():
     random_country_id = 0
 
     while random_country_id in last_5_airports:
-        random_country_id = randrange(0, config.AIRPORT_AMOUNT)
+        random_country_id = randrange(0, config.AIRPORT_AMOUNT - 1)
 
     # Shift the list left while adding a new element
     last_5_airports.pop(0)
