@@ -142,9 +142,8 @@ h1 {
 .left {
     background-image: url("images/GamePictures/AL.jpg");
     background-size: 100% 100%;
-    border-radius: 2rem;
-    height: calc(80vh - 5rem);
-    width: calc(50vw - 6rem);
+    height: calc(100vh - 5rem);
+    width: 50vw;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -154,9 +153,8 @@ h1 {
 .right {
     background-image: url("images/GamePictures/ES.jpg");
     background-size: 100% 100%;
-    border-radius: 2rem;
-    height: calc(80vh - 5rem);
-    width: calc(50vw - 6rem);
+    height: calc(100vh - 5rem);
+    width: 50vw;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -169,15 +167,8 @@ h1 {
     display: block;
     text-align: center;
     padding: 1em;
-    margin: .3em;
-    width: 70%;
-}
-
-.game article p {
-    border-radius: 3rem;
-    border-style: outset;
-    border-width: medium;
-    border-color: rgba(4, 22, 89, 0.44);
+    margin: 0;
+    width: 50%;
     text-shadow: #000000 1px 0 3px;
 }
 
@@ -294,6 +285,7 @@ dialog {
     font-family: 'Atkinson Hyperlegible', sans-serif;
     font-size: 2rem;
     line-height: 2rem;
+    min-width: 15rem;
 }
 
 #topiccontent {
@@ -327,10 +319,11 @@ label {
     margin: 0;
     width: 19%;
     padding: 1rem 0.5rem 1rem 0.5rem;
+    min-width: 15rem;
 }
 
 #start_game {
-    left: 40%;
+    margin: auto;
     position: relative;
     display: flex;
     justify-content: center;
@@ -340,6 +333,7 @@ label {
     border-color: whitesmoke;
     border-radius: 1rem;
     width: 20%;
+    min-width: 15rem;
 }
 
 .higher_btn, .lower_btn {
@@ -351,7 +345,7 @@ label {
     text-decoration: none;
     text-shadow: 1px 1px 0 #000000;
     margin: .2em;
-    outline: #ffffff solid 2px;
+    outline: rgba(0, 0, 0, 0.26) solid 2px;
     outline-offset: -5px;
     display: block;
     width: 5em;
@@ -359,19 +353,19 @@ label {
 }
 
 .higher_btn {
-    background-color: #44c767;
+    background-color: #21b749;
 }
 
 .higher_btn:hover {
-    background-color: #369f52;
+    background-color: #188334;
 }
 
 .lower_btn {
-    background-color: #ff2e2e;
+    background-color: #d22121;
 }
 
 .lower_btn:hover {
-    background-color: #c92525;
+    background-color: #9d1717;
 }
 
 .higher_btn:active, .lower_btn:active {
@@ -474,6 +468,7 @@ input[type=text]:focus::placeholder {
     color: rgba(255, 255, 255, 0.2);
 }
 
+
 .leaderboard_entry {
     display: flex;
     margin: auto;
@@ -506,4 +501,16 @@ input[type=text]:focus::placeholder {
     padding-bottom: 1rem;
     text-align: center;
     visibility: hidden;
+}
+
+@media screen and (max-width: 1630px) {
+    input[type=text] {
+        font-size: 1.9vw;
+    }
+    #midh2, #scoretext, #points, #highscoretext, #highscore {
+        font-size: 1.9vw;
+    }
+    #new_game {
+        font-size: 1.3vw;
+    }
 }
