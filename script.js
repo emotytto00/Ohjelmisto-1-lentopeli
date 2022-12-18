@@ -1,11 +1,5 @@
 'use strict';
 
-async function fetchJson(url, options = {}) {
-  const response = await fetch(url, options);
-  if (!response.ok) throw new Error('Invalid input');
-  return await response.json();
-}
-
 function increaseNotifications() {
   notifications++;
   for (let notification_indicator of notification_indicators) {
@@ -168,7 +162,9 @@ function unlockTheme(theme_index) {
 
 /* Gets random airport for the left side */
 async function init_left_side() {
-  current = await fetchJson('http://127.0.0.1:3000/airport/' + topic[0]);
+  let response = await fetch('http://127.0.0.1:3000/airport/' + topic[0]);
+  response = await response.json();
+  current = response;
   points = 0;
   update_score();
   shift_current_airport_to_left();
@@ -178,7 +174,8 @@ async function init_left_side() {
 async function new_airport() {
   old = current;
   shift_current_airport_to_left();
-  let response = await fetchJson('http://127.0.0.1:3000/airport/' + topic[0]);
+  let response = await fetch('http://127.0.0.1:3000/airport/' + topic[0]);
+  response = await response.json();
   current = response;
   right_one.innerHTML = response['country'];
   right_two.innerHTML = response['airport_name'];
@@ -246,7 +243,7 @@ function wrong_answer() {
 }
 
 async function end_game() {
-  await fetchJson(
+  await fetch(
       `http://127.0.0.1:3000/game_end?points=${points}&name=${screen_name}&topic=${topic[2]}`);
 
 }
@@ -547,12 +544,23 @@ function place_pins() {
 
 async function display_leaderboard() {
   const target = document.querySelector('#leaderboard');
-  // target.innerHTML = '';
+  target.innerHTML = '';
   const title = document.createElement('p');
   title.setAttribute('class', 'topic accent_1');
   title.setAttribute('id', 'leaderboard_topic');
   target.appendChild(title);
-  let response = await fetchJson('http://127.0.0.1:3000/leaderboard/' + topic[2]);
+  update_topic();
+  const entry = document.createElement('div');
+  const score = document.createElement('p');
+  const name = document.createElement('p');
+  entry.setAttribute('class', 'leaderboard_entry accent_2');
+  score.appendChild(document.createTextNode('Score'));
+  name.appendChild(document.createTextNode('Name'));
+  entry.appendChild(score);
+  entry.appendChild(name);
+  target.appendChild(entry);
+  let response = await fetch('http://127.0.0.1:3000/leaderboard/' + topic[2]);
+  response = await response.json();
   response.forEach(e => {
     const entry = document.createElement('div');
     const score = document.createElement('p');
