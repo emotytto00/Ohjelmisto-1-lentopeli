@@ -160,13 +160,13 @@ h1 {
 }
 
 /* elements of flex items */
-.game article p, .game article button {
+.game article p {
     font-size: 2em;
     display: block;
     text-align: center;
     padding: 1em;
     margin: 0;
-    width: 50%;
+    width: 20vw;
     text-shadow: #000000 1px 0 3px;
 }
 
@@ -505,9 +505,11 @@ input[type=text]:focus::placeholder {
     input[type=text] {
         font-size: 1.9vw;
     }
+
     #midh2, #scoretext, #points, #highscoretext, #highscore {
         font-size: 1.9vw;
     }
+
     #new_game {
         font-size: 1.3vw;
     }

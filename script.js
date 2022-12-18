@@ -547,7 +547,11 @@ function place_pins() {
 
 async function display_leaderboard() {
   const target = document.querySelector('#leaderboard');
-  target.innerHTML = '';
+  // target.innerHTML = '';
+  const title = document.createElement('p');
+  title.setAttribute('class', 'topic accent_1');
+  title.setAttribute('id', 'leaderboard_topic');
+  target.appendChild(title);
   let response = await fetchJson('http://127.0.0.1:3000/leaderboard/' + topic[2]);
   response.forEach(e => {
     const entry = document.createElement('div');
