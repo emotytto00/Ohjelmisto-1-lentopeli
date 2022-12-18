@@ -22,18 +22,31 @@ config.connection = mysql.connector.connect(
     autocommit=True)
 
 db = config.connection
+last_5_airports = [0 for i in range(5)]
+
+
+def new_country_id():
+    from random import randrange
+    random_country_id = 0
+
+    while random_country_id in last_5_airports:
+        random_country_id = randrange(0, config.AIRPORT_AMOUNT)
+
+    # Shift the list left while adding a new element
+    last_5_airports.pop(0)
+    last_5_airports.append(random_country_id)
+
+    return random_country_id
 
 
 # takes topics as strings
 @app.route('/airport/<topic>', methods=['GET'])
 def new_higher_lower(topic):
     with db.cursor() as cursor:
-        from random import randrange
-        random_country_id = randrange(0, config.AIRPORT_AMOUNT)
         query = f"SELECT country.name, europe_airport.name, {topic}, " \
                 f"latitude_deg, longitude_deg, europe_airport.iso_country " \
                 f"FROM country, europe_airport " \
-                f"WHERE europe_airport.id='{random_country_id}' AND country.iso_country=europe_airport.iso_country"
+                f"WHERE europe_airport.id='{new_country_id()}' AND country.iso_country=europe_airport.iso_country"
         cursor.execute(query)
         airport_data = cursor.fetchone()
         response = jsonify(country=airport_data[0], airport_name=airport_data[1], topic_value=airport_data[2],
