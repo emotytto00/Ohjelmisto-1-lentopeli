@@ -129,12 +129,12 @@ h1 {
 
 /* flex items */
 .game article {
-    margin: 2rem 2rem 2rem 2rem;
+    margin: 9rem 2rem 2rem 2rem;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    padding-top: 7em;
+
 }
 
 .left {
@@ -146,6 +146,21 @@ h1 {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+}
+#rightside {
+    border-radius: 3rem;
+}
+#left-one {
+    border-top-left-radius: 3rem;
+    border-top-right-radius: 3rem;
+}
+
+#left-three {
+    font-size: 4rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    border-bottom-left-radius: 3rem;
+    border-bottom-right-radius: 3rem;
 }
 
 .right {
@@ -348,6 +363,7 @@ label {
     display: block;
     width: 5em;
     text-align: center;
+    background-color: #2b79f5;
 }
 
 .higher_btn {
@@ -360,6 +376,7 @@ label {
 
 .lower_btn {
     background-color: #d22121;
+    margin-bottom: 2rem;
 }
 
 .lower_btn:hover {
