@@ -52,7 +52,6 @@ def new_higher_lower(topic):
         airport_data = cursor.fetchone()
         response = jsonify(country=airport_data[0], airport_name=airport_data[1], topic_value=airport_data[2],
                            latitude_deg=airport_data[3], longitude_deg=airport_data[4], iso_country=airport_data[5])
-        cursor.reset()
         return response
 
 
