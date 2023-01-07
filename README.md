@@ -17,12 +17,15 @@
 ![enter image description here](https://media.discordapp.net/attachments/472467539927105540/1061233287172997201/D2023.01.07_T1150_29_chrome.png)
 *- Map*
 
+
 ![enter image description here](https://media.discordapp.net/attachments/472467539927105540/1061233287525310495/D2023.01.07_T1150_56_chrome.png)
 *- Themes and how to unlock them*
+
 
 ![enter image description here](https://media.discordapp.net/attachments/472467539927105540/1061233287965720597/D2023.01.07_T1151_43_chrome.png)
 *- Leaderboard and open menu*
 
+
 # Updates:
-Graphical fixes and small optimizations.
-Added feature where a particular airport can not appear again if it has appeared in the last (5) airports.
+- Graphical fixes and small optimizations.
+- Added feature where a particular airport can not appear again if it has appeared in the last (5) airports.
